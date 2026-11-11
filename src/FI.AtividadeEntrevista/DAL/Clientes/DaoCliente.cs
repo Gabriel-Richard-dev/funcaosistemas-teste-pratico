@@ -10,6 +10,10 @@ namespace FI.AtividadeEntrevista.DAL
     /// </summary>
     internal class DaoCliente : AcessoDados
     {
+        internal DaoCliente(Transacao transacao = null) : base(transacao)
+        {
+        }
+
         /// <summary>
         /// Inclui um novo cliente
         /// </summary>
@@ -27,6 +31,7 @@ namespace FI.AtividadeEntrevista.DAL
             parametros.Add(new System.Data.SqlClient.SqlParameter("Logradouro", cliente.Logradouro));
             parametros.Add(new System.Data.SqlClient.SqlParameter("Email", cliente.Email));
             parametros.Add(new System.Data.SqlClient.SqlParameter("Telefone", cliente.Telefone));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", cliente.CPF));
 
             DataSet ds = base.Consultar("FI_SP_IncClienteV2", parametros);
             long ret = 0;
@@ -51,11 +56,17 @@ namespace FI.AtividadeEntrevista.DAL
             return cli.FirstOrDefault();
         }
 
-        internal bool VerificarExistencia(string CPF)
+        /// <summary>
+        /// Verifica se ja existe cliente com o CPF informado
+        /// </summary>
+        /// <param name="CPF">CPF (somente digitos)</param>
+        /// <param name="idIgnorar">Id do cliente a ser desconsiderado na verificacao (alteracao)</param>
+        internal bool VerificarExistencia(string CPF, long idIgnorar = 0)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
             parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", CPF));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("ID", idIgnorar));
 
             DataSet ds = base.Consultar("FI_SP_VerificaCliente", parametros);
 
@@ -91,7 +102,7 @@ namespace FI.AtividadeEntrevista.DAL
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
-            parametros.Add(new System.Data.SqlClient.SqlParameter("Id", 0));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("Id", (object)0L)); // cast para object: a constante 0 seria convertida para o enum SqlDbType (outro construtor)
 
             DataSet ds = base.Consultar("FI_SP_ConsCliente", parametros);
             List<DML.Cliente> cli = Converter(ds);
@@ -116,6 +127,7 @@ namespace FI.AtividadeEntrevista.DAL
             parametros.Add(new System.Data.SqlClient.SqlParameter("Logradouro", cliente.Logradouro));
             parametros.Add(new System.Data.SqlClient.SqlParameter("Email", cliente.Email));
             parametros.Add(new System.Data.SqlClient.SqlParameter("Telefone", cliente.Telefone));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", cliente.CPF));
             parametros.Add(new System.Data.SqlClient.SqlParameter("ID", cliente.Id));
 
             base.Executar("FI_SP_AltCliente", parametros);
@@ -153,6 +165,7 @@ namespace FI.AtividadeEntrevista.DAL
                     cli.Nome = row.Field<string>("Nome");
                     cli.Sobrenome = row.Field<string>("Sobrenome");
                     cli.Telefone = row.Field<string>("Telefone");
+                    cli.CPF = row.Field<string>("CPF");
                     lista.Add(cli);
                 }
             }

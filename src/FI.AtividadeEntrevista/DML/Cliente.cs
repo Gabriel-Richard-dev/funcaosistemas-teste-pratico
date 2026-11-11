@@ -59,6 +59,16 @@ namespace FI.AtividadeEntrevista.DML
         /// <summary>
         /// Telefone
         /// </summary>
-        public string Telefone { get; set; }        
+        public string Telefone { get; set; }
+
+        /// <summary>
+        /// CPF (somente digitos)
+        /// </summary>
+        public string CPF { get; set; }
+
+        /// <summary>
+        /// Beneficiarios do cliente
+        /// </summary>
+        public List<Beneficiario> Beneficiarios { get; set; } = new List<Beneficiario>();
     }    
 }

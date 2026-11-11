@@ -43,17 +43,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\BoCliente.cs" />
+    <Compile Include="BLL\RegraNegocioException.cs" />
+    <Compile Include="DAL\Beneficiarios\DaoBeneficiario.cs" />
     <Compile Include="DAL\Clientes\DaoCliente.cs" />
     <Compile Include="DAL\Padrao\FI.AcessoDados.cs" />
+    <Compile Include="DAL\Padrao\FI.Transacao.cs" />
+    <Compile Include="DML\Beneficiario.cs" />
     <Compile Include="DML\Cliente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\Cpf.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DAL\Beneficiarios\Procedures\FI_SP_AltBenef.sql" />
+    <Content Include="DAL\Beneficiarios\Procedures\FI_SP_ConsBenef.sql" />
+    <Content Include="DAL\Beneficiarios\Procedures\FI_SP_DelBenef.sql" />
+    <Content Include="DAL\Beneficiarios\Procedures\FI_SP_IncBenef.sql" />
     <Content Include="DAL\Clientes\Procedures\FI_SP_AltCliente.sql" />
     <Content Include="DAL\Clientes\Procedures\FI_SP_ConsCliente.sql" />
     <Content Include="DAL\Clientes\Procedures\FI_SP_DelCliente.sql" />
     <Content Include="DAL\Clientes\Procedures\FI_SP_IncCliente.sql" />
     <Content Include="DAL\Clientes\Procedures\FI_SP_PesqCliente.sql" />
+    <Content Include="DAL\Clientes\Procedures\FI_SP_VerificaCliente.sql" />
+    <Content Include="DAL\Scripts\01_Estrutura_CPF_Beneficiarios.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
