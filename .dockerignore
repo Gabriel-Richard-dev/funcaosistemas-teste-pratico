@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+**/packages/
+**/.vs/
+**/*.user
+src/FI.AtividadeEntrevista.Tests/
+*.zip
+*.pdf
+.git/
+.env

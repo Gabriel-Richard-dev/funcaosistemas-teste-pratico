@@ -1,0 +1,14 @@
+# Override de producao (VPS): conecta o site a rede do proxy reverso (Caddy),
+# que publica o dominio com HTTPS. Nenhuma porta fica exposta no host.
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+services:
+  web:
+    ports: !reset []
+    networks:
+      - default
+      - proxy
+
+networks:
+  proxy:
+    external: true
+    name: ${PROXY_NETWORK:-caddy_web}

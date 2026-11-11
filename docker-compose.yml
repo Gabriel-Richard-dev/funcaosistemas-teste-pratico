@@ -1,0 +1,37 @@
+# Execucao local:  cp .env.example .env  &&  docker compose up -d --build
+# Aplicacao em http://localhost:8080
+name: funcaosistemas
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: deploy/db/Dockerfile
+    image: funcaosistemas-db
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Express
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?defina MSSQL_SA_PASSWORD no .env}
+      MSSQL_MEMORY_LIMIT_MB: ${MSSQL_MEMORY_LIMIT_MB:-1024}
+      APP_DB_USER: ${APP_DB_USER:-fi_app}
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD:?defina APP_DB_PASSWORD no .env}
+    volumes:
+      - db-data:/var/opt/mssql
+
+  web:
+    build:
+      context: .
+      dockerfile: deploy/web/Dockerfile
+    image: funcaosistemas-web
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      CONNECTION_STRING: "Server=db,1433;Database=BancoDeDados;User Id=${APP_DB_USER:-fi_app};Password=${APP_DB_PASSWORD};Encrypt=False"
+    ports:
+      - "${WEB_BIND:-127.0.0.1}:${WEB_PORT:-8080}:8080"
+
+volumes:
+  db-data:
