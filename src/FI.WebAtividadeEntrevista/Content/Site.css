@@ -1,10 +1,241 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+/*
+ * Tema do site. Mantem a estrutura do Bootstrap 3 (campos, botoes e modais seguem o padrao
+ * das telas do enunciado) e ajusta tipografia, cores e espacamentos.
+ */
+body {
+    padding-top: 72px;
+    padding-bottom: 24px;
+    background: #f3f5f8;
+    color: #1d2733;
+    font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Set padding to keep content from hitting the edges */
+h1, h2, h3, h4 {
+    font-family: inherit;
+    color: #1d2733;
+    letter-spacing: -0.01em;
+}
+
+h2 {
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* ---------- navbar ---------- */
+.fs-navbar.navbar-inverse {
+    background: #18212c;
+    border: 0;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .04), 0 4px 16px rgba(10, 20, 30, .18);
+}
+
+.fs-navbar .navbar-nav > li > a {
+    color: #b9c4d0;
+    font-weight: 500;
+}
+
+.fs-navbar .navbar-nav > li > a:hover,
+.fs-navbar .navbar-nav > li > a:focus {
+    color: #fff;
+}
+
+.fs-brand.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.fs-brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 2px solid #fff;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.fs-brand-tag {
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .1);
+    color: #c9d3de;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+/* ---------- pagina ---------- */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+.fs-page {
+    background: #ffffff;
+    border: 1px solid #e2e7ee;
+    border-radius: 10px;
+    padding: 28px 32px 32px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, .04), 0 8px 24px rgba(16, 24, 40, .04);
+}
+
+.fs-page::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #344150;
+}
+
+.form-control {
+    border-radius: 6px;
+    border-color: #ccd5df;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: #2f80c9;
+    box-shadow: 0 0 0 3px rgba(47, 128, 201, .15);
+}
+
+input.form-control:invalid:not(:placeholder-shown) {
+    border-color: #d9534f;
+}
+
+.btn {
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.modal-content {
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 20px 50px rgba(16, 24, 40, .25);
+}
+
+.modal-header {
+    border-bottom-color: #e2e7ee;
+}
+
+#gridBeneficiarios {
+    margin-top: 8px;
+}
+
+#gridBeneficiarios td {
+    vertical-align: middle;
+}
+
+/* ---------- home ---------- */
+.fs-hero {
+    padding: 12px 0 28px;
+    border-bottom: 1px solid #e2e7ee;
+    margin-bottom: 28px;
+}
+
+.fs-eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #2f80c9;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.fs-hero h1 {
+    margin: 0 0 12px;
+    font-size: 32px;
+    font-weight: 700;
+    max-width: 680px;
+}
+
+.fs-hero .lead {
+    max-width: 720px;
+    color: #627083;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.fs-hero-actions .btn {
+    padding: 9px 18px;
+    margin-right: 8px;
+    margin-top: 4px;
+}
+
+.fs-card {
+    height: 100%;
+    margin-bottom: 20px;
+    padding: 20px 22px;
+    border: 1px solid #e2e7ee;
+    border-radius: 10px;
+    background: #fafbfd;
+}
+
+.fs-card h3 {
+    margin: 0 0 12px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.fs-card ul {
+    margin: 0;
+    padding-left: 18px;
+    color: #627083;
+    line-height: 1.7;
+}
+
+.fs-tip {
+    margin-top: 8px;
+    padding: 14px 18px;
+    border-left: 3px solid #2f80c9;
+    border-radius: 6px;
+    background: #eef5fc;
+    color: #2b3b4d;
+}
+
+code {
+    color: #2b3b4d;
+    background: #e9eef4;
+    border-radius: 4px;
+}
+
+/* ---------- rodape ---------- */
+.fs-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 18px 4px 0;
+    color: #627083;
+    font-size: 13px;
+}
+
+@media (max-width: 767px) {
+    body {
+        padding-top: 64px;
+    }
+
+    .fs-page {
+        padding: 20px 16px 24px;
+    }
+
+    .fs-hero h1 {
+        font-size: 24px;
+    }
+
+    .fs-brand-tag {
+        display: none;
+    }
 }

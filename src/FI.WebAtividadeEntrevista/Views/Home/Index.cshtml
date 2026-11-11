@@ -1,33 +1,54 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Início";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
-
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+<section class="fs-hero">
+    <span class="fs-eyebrow">Processo seletivo · Desenvolvedor</span>
+    <h1>Manutenção de clientes com CPF e beneficiários</h1>
+    <p class="lead">
+        Sistema de cadastro de clientes da solution <code>FI.WebAtividadeEntrevista</code>, agora com o CPF do
+        cliente e o cadastro de beneficiários, ambos validados na tela, no servidor e no banco de dados.
+    </p>
+    <div class="fs-hero-actions">
+        @Html.ActionLink("Abrir clientes", "Index", "Cliente", new { area = "" }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Cadastrar cliente", "Incluir", "Cliente", new { area = "" }, new { @class = "btn btn-default" })
     </div>
-</main>
+</section>
+
+<div class="row fs-features">
+    <div class="col-md-4">
+        <div class="fs-card">
+            <h3>CPF do cliente</h3>
+            <ul>
+                <li>Campo obrigatório com máscara 999.999.999-99</li>
+                <li>Validação dos dígitos verificadores</li>
+                <li>Não permite CPF duplicado</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="fs-card">
+            <h3>Beneficiários</h3>
+            <ul>
+                <li>Pop-up para incluir, alterar e excluir</li>
+                <li>Um mesmo CPF não se repete no cliente</li>
+                <li>Gravados junto com o cliente, no Salvar</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="fs-card">
+            <h3>Garantias no servidor</h3>
+            <ul>
+                <li>Regras repetidas na camada de negócio</li>
+                <li>Constraints únicas no SQL Server</li>
+                <li>Cliente e beneficiários na mesma transação</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="fs-tip">
+    <strong>Para testar:</strong> use CPFs válidos como <code>529.982.247-25</code>, <code>111.444.777-35</code>
+    ou <code>000.000.001-91</code>. Um CPF inválido ou repetido é recusado com uma mensagem explicando o motivo.
+</div>
