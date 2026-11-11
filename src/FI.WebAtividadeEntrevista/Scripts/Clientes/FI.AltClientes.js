@@ -1,5 +1,7 @@
 ﻿
 $(document).ready(function () {
+    Cpf.aplicarMascara($('#formCadastro #CPF'), true);
+
     if (obj) {
         $('#formCadastro #Nome').val(obj.Nome);
         $('#formCadastro #CEP').val(obj.CEP);
@@ -10,6 +12,8 @@ $(document).ready(function () {
         $('#formCadastro #Cidade').val(obj.Cidade);
         $('#formCadastro #Logradouro').val(obj.Logradouro);
         $('#formCadastro #Telefone').val(obj.Telefone);
+        $('#formCadastro #CPF').val(obj.CPF);
+        Beneficiarios.carregar(obj.Beneficiarios);
     }
 
     $('#formCadastro').submit(function (e) {
@@ -18,8 +22,10 @@ $(document).ready(function () {
         $.ajax({
             url: urlPost,
             method: "POST",
-            data: {
-                "NOME": $(this).find("#Nome").val(),
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                "Id": obj.Id,
+                "Nome": $(this).find("#Nome").val(),
                 "CEP": $(this).find("#CEP").val(),
                 "Email": $(this).find("#Email").val(),
                 "Sobrenome": $(this).find("#Sobrenome").val(),
@@ -27,8 +33,10 @@ $(document).ready(function () {
                 "Estado": $(this).find("#Estado").val(),
                 "Cidade": $(this).find("#Cidade").val(),
                 "Logradouro": $(this).find("#Logradouro").val(),
-                "Telefone": $(this).find("#Telefone").val()
-            },
+                "Telefone": $(this).find("#Telefone").val(),
+                "CPF": $(this).find("#CPF").val(),
+                "Beneficiarios": Beneficiarios.obter()
+            }),
             error:
             function (r) {
                 if (r.status == 400)
@@ -57,7 +65,7 @@ function ModalDialog(titulo, texto) {
         '                    <h4 class="modal-title">' + titulo + '</h4>                                                    ' +
         '                </div>                                                                                             ' +
         '                <div class="modal-body">                                                                           ' +
-        '                    <p>' + texto + '</p>                                                                           ' +
+        '                    <p>' + $('<div>').text(texto || '').html().replace(/\r?\n/g, '<br>') + '</p>                                                                           ' +
         '                </div>                                                                                             ' +
         '                <div class="modal-footer">                                                                         ' +
         '                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>             ' +

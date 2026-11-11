@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FI.AtividadeEntrevista.DML;
+using FI.AtividadeEntrevista.Util;
 
 namespace WebAtividadeEntrevista.Controllers
 {
@@ -26,69 +27,40 @@ namespace WebAtividadeEntrevista.Controllers
         public JsonResult Incluir(ClienteModel model)
         {
             BoCliente bo = new BoCliente();
-            
+
             if (!this.ModelState.IsValid)
-            {
-                List<string> erros = (from item in ModelState.Values
-                                      from error in item.Errors
-                                      select error.ErrorMessage).ToList();
+                return ErrosDeValidacao();
 
-                Response.StatusCode = 400;
-                return Json(string.Join(Environment.NewLine, erros));
-            }
-            else
+            try
             {
-                
-                model.Id = bo.Incluir(new Cliente()
-                {                    
-                    CEP = model.CEP,
-                    Cidade = model.Cidade,
-                    Email = model.Email,
-                    Estado = model.Estado,
-                    Logradouro = model.Logradouro,
-                    Nacionalidade = model.Nacionalidade,
-                    Nome = model.Nome,
-                    Sobrenome = model.Sobrenome,
-                    Telefone = model.Telefone
-                });
-
-           
-                return Json("Cadastro efetuado com sucesso");
+                model.Id = bo.Incluir(ParaCliente(model));
             }
+            catch (RegraNegocioException ex)
+            {
+                return Erro(ex.Message);
+            }
+
+            return Json("Cadastro efetuado com sucesso");
         }
 
         [HttpPost]
         public JsonResult Alterar(ClienteModel model)
         {
             BoCliente bo = new BoCliente();
-       
-            if (!this.ModelState.IsValid)
-            {
-                List<string> erros = (from item in ModelState.Values
-                                      from error in item.Errors
-                                      select error.ErrorMessage).ToList();
 
-                Response.StatusCode = 400;
-                return Json(string.Join(Environment.NewLine, erros));
-            }
-            else
+            if (!this.ModelState.IsValid)
+                return ErrosDeValidacao();
+
+            try
             {
-                bo.Alterar(new Cliente()
-                {
-                    Id = model.Id,
-                    CEP = model.CEP,
-                    Cidade = model.Cidade,
-                    Email = model.Email,
-                    Estado = model.Estado,
-                    Logradouro = model.Logradouro,
-                    Nacionalidade = model.Nacionalidade,
-                    Nome = model.Nome,
-                    Sobrenome = model.Sobrenome,
-                    Telefone = model.Telefone
-                });
-                               
-                return Json("Cadastro alterado com sucesso");
+                bo.Alterar(ParaCliente(model));
             }
+            catch (RegraNegocioException ex)
+            {
+                return Erro(ex.Message);
+            }
+
+            return Json("Cadastro alterado com sucesso");
         }
 
         [HttpGet]
@@ -111,10 +83,17 @@ namespace WebAtividadeEntrevista.Controllers
                     Nacionalidade = cliente.Nacionalidade,
                     Nome = cliente.Nome,
                     Sobrenome = cliente.Sobrenome,
-                    Telefone = cliente.Telefone
+                    Telefone = cliente.Telefone,
+                    CPF = Cpf.Formatar(cliente.CPF),
+                    Beneficiarios = cliente.Beneficiarios.Select(b => new BeneficiarioModel()
+                    {
+                        Id = b.Id,
+                        CPF = Cpf.Formatar(b.CPF),
+                        Nome = b.Nome
+                    }).ToList()
                 };
 
-            
+
             }
 
             return View(model);
@@ -145,6 +124,51 @@ namespace WebAtividadeEntrevista.Controllers
             {
                 return Json(new { Result = "ERROR", Message = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Converte o modelo da tela para o objeto de negocio
+        /// </summary>
+        private static Cliente ParaCliente(ClienteModel model)
+        {
+            return new Cliente()
+            {
+                Id = model.Id,
+                CEP = model.CEP,
+                Cidade = model.Cidade,
+                Email = model.Email,
+                Estado = model.Estado,
+                Logradouro = model.Logradouro,
+                Nacionalidade = model.Nacionalidade,
+                Nome = model.Nome,
+                Sobrenome = model.Sobrenome,
+                Telefone = model.Telefone,
+                CPF = model.CPF,
+                Beneficiarios = (model.Beneficiarios ?? new List<BeneficiarioModel>())
+                    .Select(b => new Beneficiario()
+                    {
+                        Id = b.Id,
+                        CPF = b.CPF,
+                        Nome = b.Nome,
+                        IdCliente = model.Id
+                    }).ToList()
+            };
+        }
+
+        private JsonResult ErrosDeValidacao()
+        {
+            List<string> erros = (from item in ModelState.Values
+                                  from error in item.Errors
+                                  select error.ErrorMessage).Distinct().ToList();
+
+            return Erro(string.Join(Environment.NewLine, erros));
+        }
+
+        private JsonResult Erro(string mensagem)
+        {
+            Response.StatusCode = 400;
+            Response.TrySkipIisCustomErrors = true;
+            return Json(mensagem);
         }
     }
 }
