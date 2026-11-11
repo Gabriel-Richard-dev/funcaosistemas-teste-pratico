@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FI.WebAtividadeEntrevista",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FI.AtividadeEntrevista", "FI.AtividadeEntrevista\FI.AtividadeEntrevista.csproj", "{2B795BB7-A890-48FA-8F70-EF89F2E318D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FI.AtividadeEntrevista.Tests", "FI.AtividadeEntrevista.Tests\FI.AtividadeEntrevista.Tests.csproj", "{2121862F-C93C-4B7D-83F6-3C02F9CBC2C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2B795BB7-A890-48FA-8F70-EF89F2E318D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B795BB7-A890-48FA-8F70-EF89F2E318D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B795BB7-A890-48FA-8F70-EF89F2E318D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2121862F-C93C-4B7D-83F6-3C02F9CBC2C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2121862F-C93C-4B7D-83F6-3C02F9CBC2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2121862F-C93C-4B7D-83F6-3C02F9CBC2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2121862F-C93C-4B7D-83F6-3C02F9CBC2C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
