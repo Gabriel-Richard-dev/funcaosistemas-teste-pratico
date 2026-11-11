@@ -52,7 +52,6 @@ RUN set -eu; \
 COPY deploy/web/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-ENV MONO_IOMAP=all
 EXPOSE 8080
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["xsp4", "--port", "8080", "--address", "0.0.0.0", "--root", "/app", "--nonstop", "--verbose"]
