@@ -1,0 +1,14 @@
+# Banco de dados e binarios: nunca tratar como texto
+*.mdf binary
+*.ldf binary
+*.ico binary
+*.png binary
+*.gif binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# Scripts executados dentro dos containers Linux precisam de LF
+*.sh text eol=lf
+deploy/** text eol=lf

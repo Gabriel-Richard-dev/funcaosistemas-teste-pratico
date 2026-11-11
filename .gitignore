@@ -1,0 +1,20 @@
+# Visual Studio / build
+.vs/
+bin/
+obj/
+packages/
+*.user
+*.suo
+*.cache
+TestResults/
+
+# LocalDB (arquivos temporarios gerados ao anexar o banco)
+*.mdf.bak
+App_Data/*_log.ldf.bak
+
+# Ambiente / segredos
+.env
+
+# Material recebido (enunciado e solution original)
+*.zip
+*.pdf
